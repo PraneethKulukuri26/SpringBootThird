@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>demo learning</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="tre.js" defer></script>
+  </head>
+  <body>
+	
+	<div class="wrapper">
+	
+		<hi>Register</hi>
+		<div class="inputBox">
+			<input id="na" type="text"  placeholder="UserName" required>
+		</div>
+		
+		<div class="inputBox">
+			<input id="em" type="email"  placeholder="Enter mail" required>
+		</div>
+		
+		<div class="inputBox">
+			<input id="pas" type="password" placeholder="password" required>
+		</div>
+		
+		<button id="reg" type="submit">Submit</button>
+		
+	
+	</div>
+	
+	<script>
+	  const button = document.getElementById('reg');
+
+	  button.addEventListener('click', () => {
+
+	    //alert('clickd');
+		let e=document.getElementById('na').value.toString();
+		let f=document.getElementById('em').value.toString();
+		let g=document.getElementById('pas').value.toString();
+		if(e.length==0 || f.length==0 || g.length==0){
+			alert("Incomplete info");
+		}
+		else{
+			fetch('http://localhost:8080/r/Register', {
+			  method: 'POST',
+			  headers: {
+			    'Content-Type': 'application/json'
+			  },
+			  body: JSON.stringify({ name: e,password:g,email: f})
+			})
+			  .then(response => response.json())
+			  .then(data => {
+			    console.log(data);
+			  })
+			  .catch(error => {
+			    console.error('There has been a problem with your fetch operation:', error);
+			  });
+		}
+		
+	  });
+	  
+	</script>
+	
+  </body>
+</html>
